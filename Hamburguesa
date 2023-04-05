@@ -1,0 +1,89 @@
+public class Hamburguesa
+{
+    private string tipoPan;
+    private string carne;
+    private int precioBase;
+    private List<string> ingredientesAdicionales;
+
+    public Hamburguesa(string tipoPan, string carne, decimal precioBase)
+    {
+        this.tipoPan = tipoPan;
+        this.carne = carne;
+        this.precioBase = precioBase;
+        this.ingredientesAdicionales = new List<string>();
+    }
+
+    public void AgregarIngrediente(string ingrediente, decimal precioAdicional)
+    {
+        if (this.ingredientesAdicionales.Count < 4)
+        {
+            this.ingredientesAdicionales.Add(ingrediente);
+            this.precioBase += precioAdicional;
+        }
+        else
+        {
+            Console.WriteLine("No se pueden agregar más de 4 ingredientes adicionales.");
+        }
+    }
+
+    public void MostrarPrecio()
+    {
+        Console.WriteLine($"Hamburguesa {this.carne} en pan {this.tipoPan}: {this.precioBase:C}");
+
+        if (this.ingredientesAdicionales.Count > 0)
+        {
+            Console.WriteLine("Ingredientes adicionales:");
+
+            foreach (string ingrediente in this.ingredientesAdicionales)
+            {
+                Console.WriteLine($" - {ingrediente}");
+            }
+
+            Console.WriteLine($"Precio total: {this.precioBase:C}");
+        }
+    }
+}
+
+public class HamburguesaSaludable : Hamburguesa
+{
+    public HamburguesaSaludable(string tipoPan, string carne, decimal precioBase)
+        : base(tipoPan, carne, precioBase)
+    {
+    }
+
+    public void AgregarIngredienteSaludable(string ingrediente, decimal precioAdicional)
+    {
+        if (this.IngredientesAdicionales.Count < 6)
+        {
+            this.IngredientesAdicionales.Add(ingrediente);
+            this.PrecioBase += precioAdicional;
+        }
+        else
+        {
+            Console.WriteLine("No se pueden agregar más de 6 ingredientes adicionales.");
+        }
+    }
+}
+
+public class HamburguesaPremium : Hamburguesa
+{
+    private const decimal costo_papas = 200;
+    private const decimal costo_bebida = 75;
+
+    public HamburguesaPremium(string tipoPan, string carne, decimal precioBase)
+        : base(tipoPan, carne, precioBase + costo_papas + costo_bebida)
+    {
+        Console.WriteLine($"Hamburguesa {carne} Premium con papitas y bebida: {this.PrecioBase:C}");
+    }
+
+    public void MostrarPrecio()
+    {
+        Console.WriteLine($"Hamburguesa {this.Carne} Premium en pan {this.TipoPan}: {this.PrecioBase:C}");
+        Console.WriteLine($"Incluye papitas y bebida.");
+
+        if (this.IngredientesAdicionales.Count > 0)
+        {
+            Console.WriteLine("No se permite agregar ingredientes adicionales a esta hamburguesa.");
+        }
+    }
+}
